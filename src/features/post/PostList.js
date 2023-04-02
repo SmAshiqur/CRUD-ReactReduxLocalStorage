@@ -16,7 +16,10 @@ function PostList() {
     <div>
       {status === "loading" && <h1>loading</h1>}
       {status === "success" &&
-        data.map((d) => <ListItem key={d.id} title={d.title} body={d.body} />)}
+        data.map((d) => (
+          <ListItem key={d.id} id={d.id} title={d.title} body={d.body} />
+        ))}
+      {status === "error" && <h1>Failed to load data</h1>}
     </div>
   );
 }
