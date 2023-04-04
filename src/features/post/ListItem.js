@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeData, updateData } from "./postSlice";
+import { TiEdit } from "react-icons/ti";
+import { FiDelete } from "react-icons/fi";
 
 function ListItem({ id, title, body }) {
   const [edit, setEdit] = useState(false);
@@ -46,24 +48,55 @@ function ListItem({ id, title, body }) {
   };
 
   return (
-    <div>
-      {edit ? (
-        <form className="post-form" onSubmit={handleSubmit}>
-          <input onChange={handleTitleChange} type="text" value={formTitle} />
-          <textarea onChange={handleBodyChange} value={formBody} />
-          <button onClick={handleSubmit} type="submit">
-            Submit
-          </button>
-          <button onClick={handleCancle}>cancel</button>
-        </form>
-      ) : (
-        <>
-          <button onClick={handleEdit}>edit</button>
-          <button onClick={() => handleDelete(id)}>delete</button>
-          <h3>{title}</h3>
-          <p>{body}</p>
-        </>
-      )}
+    <div className="w-full flex justify-center">
+      <div className="max-w-sm rounded overflow-hidden shadow-lg">
+        <div className="px-6 py-4">
+          {edit ? (
+            <form className="post-form" onSubmit={handleSubmit}>
+              <input
+                onChange={handleTitleChange}
+                type="text"
+                value={formTitle}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              <textarea
+                onChange={handleBodyChange}
+                value={formBody}
+                className="shadow appearance-none border border-blue-300 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline mt-2"
+              />
+              <div className="flex justify-evenly">
+                <button
+                  onClick={handleSubmit}
+                  type="submit"
+                  className="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={handleCancle}
+                  className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          ) : (
+            <>
+              <div className="flex justify-end">
+                <button onClick={handleEdit}>
+                  <TiEdit />
+                </button>
+                <button onClick={() => handleDelete(id)}>
+                  <FiDelete />
+                </button>
+              </div>
+
+              <div className="font-bold text-xl mb-2">{title}</div>
+              <p className="text-gray-700 text-base">{body}</p>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
